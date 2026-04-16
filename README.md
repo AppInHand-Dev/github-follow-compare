@@ -1,6 +1,4 @@
-### README for github-follow-compare
-
-# github-follow-compare — Compare GitHub followers and following (CLI)
+# Github Follow Compare — Compare GitHub followers and following (CLI)
 
 A small, focused command-line tool that fetches a GitHub user's **followers** and **following** pages, extracts usernames and display names, compares the two lists, and reports differences. The project is lightweight, easy to read, and intended for personal or educational use.
 
