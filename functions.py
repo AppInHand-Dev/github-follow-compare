@@ -1,5 +1,5 @@
 """
-# v1.0.0 16/04/2026
+# v1.1.0 28/04/2026
 # Author: AppInHand-Dev
 """
 
@@ -10,11 +10,12 @@ Utility functions for github_follow_compare project.
 
 import time
 import csv
+import json
 import requests
 from bs4 import BeautifulSoup
 import tkinter as tk
 from tkinter.scrolledtext import ScrolledText
-from typing import List, Dict
+from typing import List, Dict, Set
 import config
 
 
@@ -81,6 +82,44 @@ def fetch_tab_profiles(username: str, tab: str, token: str = "") -> List[Dict[st
 
     return results
 
+def load_filters(filename: str) -> Dict[str, Set[str]]:
+    """
+    Load filters from a JSON file.
+
+    Accepted keys (case-insensitive): 'follower', 'followers', 'following', 'followings'.
+    Returns a dict with keys 'followers' and 'following' mapping to sets of usernames (lowercased).
+    If the file cannot be read or parsed, raises an exception.
+    """
+    with open(filename, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    # Normalize keys and values
+    followers_set: Set[str] = set()
+    following_set: Set[str] = set()
+
+    if not isinstance(data, dict):
+        return {}
+
+    for key, value in data.items():
+        if not isinstance(value, list):
+            continue
+        key_lower = key.strip().lower()
+        normalized = {str(v).strip().lower() for v in value if v}
+        if key_lower in ("follower", "followers"):
+            followers_set.update(normalized)
+        elif key_lower in ("following", "followings"):
+            following_set.update(normalized)
+
+    return {"followers": followers_set, "following": following_set}
+
+def apply_filters_to_list(profiles: List[Dict[str, str]], filter_set: Set[str]) -> List[Dict[str, str]]:
+    """
+    Return a new list of profiles excluding any whose username (case-insensitive) is in filter_set.
+    """
+    if not filter_set:
+        return profiles
+    filtered = [p for p in profiles if p.get("username", "").strip().lower() not in filter_set]
+    return filtered
 
 def save_csv(filename: str, followers: List[Dict[str, str]], following: List[Dict[str, str]]):
     """

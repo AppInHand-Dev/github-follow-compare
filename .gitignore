@@ -83,6 +83,7 @@ config.local.py
 secrets.py
 credentials.json
 cookies.txt
+filters.json
 
 # yt-dlp / ffmpeg related
 *.part

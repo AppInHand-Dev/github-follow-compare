@@ -19,6 +19,7 @@ A small, focused command-line tool that fetches a GitHub user's **followers** an
 
 * **CLI tool** that compares followers vs following for a GitHub username.
 * Extracts **username**, **display name**, and a short **bio** snippet from profile list pages.
+* **Optional filters** via JSON file (`--filters <file>.json`) to exclude specific usernames from the final output and CSV.
 * **CSV export** option (`--csv`) to save results.
 * **GUI popup** (Tkinter) to display results by default; can be disabled with `--no-gui`.
 * **Pagination support** to handle profiles spanning multiple pages.
@@ -79,10 +80,16 @@ This repository and its code were produced with the assistance of an AI. The rep
   python github_follow_compare.py AppInHand-Dev --no-gui
   ```
 
+- **Use filters file**
+  ```bash
+  python github_follow_compare.py AppInHand-Dev --filters filters.example.json
+
 - **Save results to CSV**
   ```bash
   python github_follow_compare.py AppInHand-Dev --csv results.csv
   ```
+- **Use filters file and Save results to CSV**
+- python github_follow_compare.py AppInHand-Dev --no-gui --csv results.csv --filters filters.example.json
 
 - **Use a GitHub token to reduce rate limits**
   ```bash
@@ -95,6 +102,7 @@ This repository and its code were produced with the assistance of an AI. The rep
 
 * **`githubUsername`** — GitHub username to analyze (positional).
 * **`--no-gui`** — Do not open the Tkinter popup; print results to console only.
+* **`--filters FILE`** — Optional JSON file containing usernames to exclude from results. Accepted keys: `follower`, `followers`, `following`, `followings`. Values must be lists of usernames. Filtering is case-insensitive.
 * **`--csv FILE`** — Save followers and following rows to `FILE` (columns: `list_type`, `username`, `display_name`, `bio`).
 * **`--token GITHUB_TOKEN`** — Optional GitHub personal access token for authenticated requests.
 
@@ -125,6 +133,7 @@ This repository and its code were produced with the assistance of an AI. The rep
 - **`github_follow_compare.py`** — CLI entry point.
 - **`functions.py`** — Scraping, CSV export, formatting, and GUI helper functions.
 - **`config.py`** — Configuration constants (headers, timeouts, delays).
+- **`filters.example.json`** — Example JSON file showing how to exclude usernames from followers and following lists.
 - **`requirements.txt`** — Python dependencies (recommended).
 - **`LICENSE`** — Project license (MIT).
 

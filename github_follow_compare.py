@@ -1,5 +1,5 @@
 """
-# v1.0.0 16/04/2026
+# v1.1.0 28/04/2026
 # Author: AppInHand-Dev
 """
 
@@ -7,7 +7,6 @@
 # github_follow_compare.py
 import argparse
 import functions
-import sys
 
 def main():
     parser = argparse.ArgumentParser(description="Compare followers and following lists for a GitHub profile")
@@ -15,6 +14,12 @@ def main():
     parser.add_argument("--no-gui", action="store_true", help="Do not open the GUI window; print results to console only")
     parser.add_argument("--csv", metavar="FILE", help="Save results to FILE in CSV format")
     parser.add_argument("--token", metavar="GITHUB_TOKEN", help="GitHub token for authenticated requests", default="")
+    parser.add_argument(
+            "--filters", "--filter",
+            metavar="FILE",
+            help="Optional JSON file with filters (keys: follower(s), following(s))",
+            default=""
+        )
     args = parser.parse_args()
 
     username = args.githubUsername.strip()
@@ -27,6 +32,23 @@ def main():
     print(f"Fetching following for {username} ...")
     following = functions.fetch_tab_profiles(username, "following", token=token)
     print(f"Found {len(following)} following.")
+
+    filters = {}
+    if args.filters:
+        try:
+            filters = functions.load_filters(args.filters)
+            if filters:
+                print(f"Loaded filters from {args.filters}")
+            else:
+                print(f"No valid filters found in {args.filters}; continuing without filters.")
+        except Exception as e:
+            print(f"Error loading filter file {args.filters}: {e}")
+            filters = {}
+
+    if filters:
+        followers = functions.apply_filters_to_list(followers, filters.get("followers", set()))
+        following = functions.apply_filters_to_list(following, filters.get("following", set()))
+        print(f"After filtering: {len(followers)} followers, {len(following)} following.")
 
     if args.csv:
         try:

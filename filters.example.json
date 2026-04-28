@@ -1,0 +1,4 @@
+{
+  "followers": ["alice", "bob"],
+  "following": ["charlie"]
+}
