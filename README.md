@@ -15,7 +15,7 @@ A small, focused command-line tool that fetches a GitHub user's **followers** an
 
 ---
 
-### Key features
+### ✨ Key features
 
 * **CLI tool** that compares followers vs following for a GitHub username.
 * Extracts **username**, **display name**, and a short **bio** snippet from profile list pages.
@@ -27,13 +27,13 @@ A small, focused command-line tool that fetches a GitHub user's **followers** an
 
 ---
 
-### Project provenance
+### 🔗 Project provenance
 
 This repository and its code were produced with the assistance of an AI. The repository owner provided the design and instructions; the AI generated the implementation and documentation. The owner reviewed and tested the code before publishing.
 
 ---
 
-## Quick start
+## 🚀 Quick start
 
 1. **Clone the repository**
    ```bash
@@ -68,7 +68,7 @@ This repository and its code were produced with the assistance of an AI. The rep
 
 ---
 
-## Usage examples
+## 📍 Usage examples
 
 - **Default (GUI + console)**
   ```bash
@@ -98,7 +98,7 @@ This repository and its code were produced with the assistance of an AI. The rep
 
 ---
 
-## Command-line options
+## 🚩 Command-line options
 
 * **`githubUsername`** — GitHub username to analyze (positional).
 * **`--no-gui`** — Do not open the Tkinter popup; print results to console only.
@@ -108,7 +108,7 @@ This repository and its code were produced with the assistance of an AI. The rep
 
 ---
 
-## Output format
+## 📊 Output format
 
 - **Console / GUI**: human-readable comparison showing:
   - users you follow who do not follow you back,
@@ -119,7 +119,7 @@ This repository and its code were produced with the assistance of an AI. The rep
 
 ---
 
-## Implementation notes and limitations
+## 🚧 Implementation notes and limitations
 
 * The scraper relies on the current GitHub HTML structure and CSS classes (e.g., `a.d-inline-block.no-underline.mb-1`, `span.f4.Link--primary`). If GitHub changes its markup, selectors may need updating.
 * For robust, production-grade usage prefer the **GitHub API** (requires authentication and handles pagination and rate limits explicitly).
@@ -128,7 +128,7 @@ This repository and its code were produced with the assistance of an AI. The rep
 
 ---
 
-## Files in this repository
+## 📁 Files in this repository
 
 - **`github_follow_compare.py`** — CLI entry point.
 - **`functions.py`** — Scraping, CSV export, formatting, and GUI helper functions.
@@ -139,7 +139,7 @@ This repository and its code were produced with the assistance of an AI. The rep
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome. Suggested improvements:
 - Add an API-based mode using the GitHub REST API.
@@ -151,19 +151,19 @@ When contributing, please update the README to reflect any changes that affect u
 
 ---
 
-## Reproducibility and provenance
+## 🔬 Reproducibility and provenance
 
 This project is a small orchestration of standard Python libraries (`requests`, `beautifulsoup4`, `tkinter`). It is reproducible by installing the listed dependencies and running the script. The implementation was generated with AI assistance; the repository owner provided the instructions and validated the code.
 
 ---
 
-## License
+## 📜 License
 
 This project is released under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Final notes
+## 📌 Final notes
 
 * Keep dependencies up to date.
 * If you plan to run this tool frequently or at scale, switch to the GitHub API and implement proper rate-limit handling.
